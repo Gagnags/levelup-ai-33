@@ -8,6 +8,11 @@ import Home from "./pages/Home";
 import EventExplorer from "./pages/EventExplorer";
 import PlayerProfile from "./pages/PlayerProfile";
 import Cohorts from "./pages/Cohorts";
+import Journeys from "./pages/Journeys";
+import CopilotHome from "./pages/CopilotHome";
+import Playbooks from "./pages/Playbooks";
+import Catalog from "./pages/Catalog";
+import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -24,11 +29,11 @@ const App = () => (
             <Route path="explore" element={<EventExplorer />} />
             <Route path="players" element={<PlayerProfile />} />
             <Route path="cohorts" element={<Cohorts />} />
-            <Route path="journeys" element={<div className="p-6"><h1 className="text-2xl font-bold">Journeys</h1><p className="text-muted-foreground">Coming soon...</p></div>} />
-            <Route path="copilot" element={<div className="p-6"><h1 className="text-2xl font-bold">Copilot</h1><p className="text-muted-foreground">Use the floating chat button!</p></div>} />
-            <Route path="playbooks" element={<div className="p-6"><h1 className="text-2xl font-bold">Playbooks</h1><p className="text-muted-foreground">Coming soon...</p></div>} />
-            <Route path="catalog" element={<div className="p-6"><h1 className="text-2xl font-bold">Catalog</h1><p className="text-muted-foreground">Coming soon...</p></div>} />
-            <Route path="settings" element={<div className="p-6"><h1 className="text-2xl font-bold">Settings</h1><p className="text-muted-foreground">Coming soon...</p></div>} />
+            <Route path="journeys" element={<Journeys />} />
+            <Route path="copilot" element={<CopilotHome />} />
+            <Route path="playbooks" element={<Playbooks />} />
+            <Route path="catalog" element={<Catalog />} />
+            <Route path="settings" element={<Settings />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
