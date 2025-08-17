@@ -9,7 +9,8 @@ import {
   MessageSquare, 
   Zap, 
   Database,
-  Settings
+  Settings,
+  TrendingUp
 } from "lucide-react";
 
 const navItems = [
@@ -17,6 +18,7 @@ const navItems = [
   { name: "Explore", href: "/explore", icon: Search },
   { name: "Players", href: "/players", icon: Users },
   { name: "Cohorts", href: "/cohorts", icon: GitBranch },
+  { name: "LTV Prediction", href: "/ltv", icon: TrendingUp },
   { name: "Journeys", href: "/journeys", icon: Route },
   { name: "Copilot", href: "/copilot", icon: MessageSquare },
   { name: "Playbooks", href: "/playbooks", icon: Zap },

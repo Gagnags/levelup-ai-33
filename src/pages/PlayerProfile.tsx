@@ -120,7 +120,7 @@ export default function PlayerProfile() {
       </div>
 
       {/* KPIs */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
         <MetricCard
           title="Total Sessions"
           value={samplePlayer.sessionCount.toString()}
@@ -140,6 +140,12 @@ export default function PlayerProfile() {
           title="Current Level"
           value={samplePlayer.xpLevel.toString()}
           icon={<Trophy className="w-5 h-5" />}
+        />
+        <MetricCard
+          title="Predicted LTV (90d)"
+          value="$12.45"
+          change={{ value: "+8.2%", type: "increase", period: "vs baseline" }}
+          icon={<TrendingUp className="w-5 h-5" />}
         />
       </div>
 
