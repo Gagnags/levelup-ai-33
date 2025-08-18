@@ -8,6 +8,8 @@ import { MetricCard } from "@/components/MetricCard";
 import { LTVCohortBuilder } from "@/components/LTVCohortBuilder";
 import { LTVModelConfig } from "@/components/LTVModelConfig";
 import { LTVResults } from "@/components/LTVResults";
+import { LTVPredictionBuilder } from "@/components/LTVPredictionBuilder";
+import { LTVModelPerformance } from "@/components/LTVModelPerformance";
 import { 
   TrendingUp, 
   Users, 
@@ -55,6 +57,61 @@ const samplePredictions = [
     lastUpdated: "1 day ago",
     uplift: "-15.2%",
     topDrivers: ["session_gap_d3", "tutorial_skip", "no_purchase_d7"]
+  },
+  {
+    id: "pred_004",
+    name: "iOS Premium Users",
+    cohortSize: 5600,
+    predictedLTV90d: 8.92,
+    confidence: 0.88,
+    status: "active",
+    lastUpdated: "6 hours ago",
+    uplift: "+18.4%",
+    topDrivers: ["platform_ios", "premium_purchase_d1", "social_share"]
+  },
+  {
+    id: "pred_005",
+    name: "Weekend Warriors",
+    cohortSize: 7800,
+    predictedLTV90d: 3.24,
+    confidence: 0.79,
+    status: "active",
+    lastUpdated: "8 hours ago",
+    uplift: "+5.2%",
+    topDrivers: ["weekend_sessions", "long_session_duration", "achievement_unlock"]
+  },
+  {
+    id: "pred_006",
+    name: "Tutorial Completers",
+    cohortSize: 18900,
+    predictedLTV90d: 6.45,
+    confidence: 0.85,
+    status: "active",
+    lastUpdated: "12 hours ago",
+    uplift: "+22.1%",
+    topDrivers: ["tutorial_complete", "first_level_time", "help_usage"]
+  },
+  {
+    id: "pred_007",
+    name: "Social Connectors",
+    cohortSize: 4200,
+    predictedLTV90d: 11.78,
+    confidence: 0.83,
+    status: "training",
+    lastUpdated: "1 day ago",
+    uplift: "+28.9%",
+    topDrivers: ["friend_invite", "leaderboard_view", "guild_join"]
+  },
+  {
+    id: "pred_008",
+    name: "Android Power Users",
+    cohortSize: 9600,
+    predictedLTV90d: 7.33,
+    confidence: 0.81,
+    status: "active",
+    lastUpdated: "18 hours ago",
+    uplift: "+14.7%",
+    topDrivers: ["platform_android", "daily_login_streak", "feature_usage"]
   }
 ];
 
@@ -117,7 +174,7 @@ export default function LTVPrediction() {
           <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="builder">Prediction Builder</TabsTrigger>
           <TabsTrigger value="results">Results & Analysis</TabsTrigger>
-          <TabsTrigger value="insights">AI Insights</TabsTrigger>
+          <TabsTrigger value="performance">Model Performance</TabsTrigger>
         </TabsList>
 
         <TabsContent value="overview" className="space-y-6">
@@ -206,41 +263,58 @@ export default function LTVPrediction() {
             </CardContent>
           </Card>
 
-          {/* Quick Insights */}
+          {/* Model Summary Stats */}
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Brain className="w-5 h-5" />
-                AI-Generated Insights
+                <TrendingUp className="w-5 h-5" />
+                Model Performance Summary
               </CardTitle>
-              <CardDescription>Key findings from your LTV prediction models</CardDescription>
+              <CardDescription>Key metrics across all active predictions</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="space-y-4">
-                <div className="p-4 bg-accent/30 border border-primary/20 rounded-lg">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="p-3 bg-surface-elevated rounded-lg">
+                  <div className="text-2xl font-bold text-foreground">87.3%</div>
+                  <div className="text-sm text-muted-foreground">Avg Accuracy</div>
+                </div>
+                <div className="p-3 bg-surface-elevated rounded-lg">
+                  <div className="text-2xl font-bold text-foreground">$5.67</div>
+                  <div className="text-sm text-muted-foreground">Mean LTV</div>
+                </div>
+                <div className="p-3 bg-surface-elevated rounded-lg">
+                  <div className="text-2xl font-bold text-foreground">24K</div>
+                  <div className="text-sm text-muted-foreground">Players Analyzed</div>
+                </div>
+                <div className="p-3 bg-surface-elevated rounded-lg">
+                  <div className="text-2xl font-bold text-foreground">8.2%</div>
+                  <div className="text-sm text-muted-foreground">Prediction Error</div>
+                </div>
+              </div>
+              
+              <div className="mt-6 space-y-3">
+                <div className="p-4 bg-success/10 border border-success/20 rounded-lg">
                   <div className="flex items-start gap-3">
-                    <TrendingUp className="w-5 h-5 text-primary mt-0.5" />
+                    <TrendingUp className="w-5 h-5 text-success mt-0.5" />
                     <div>
-                      <h4 className="font-medium text-foreground">High-Value Cohort Identified</h4>
+                      <h4 className="font-medium text-foreground">High-Value Cohort Performance</h4>
                       <p className="text-sm text-muted-foreground mt-1">
-                        Players completing tutorial + making first purchase within 3 days show 3.2x higher LTV. 
-                        Consider targeting similar profiles in UA campaigns.
+                        Tutorial completers with D1 purchases show 3.2x higher predicted LTV. 
+                        Current model accuracy: 91% for this segment.
                       </p>
-                      <Badge variant="secondary" className="mt-2">High Confidence</Badge>
                     </div>
                   </div>
                 </div>
                 
-                <div className="p-4 bg-accent/30 border border-warning/20 rounded-lg">
+                <div className="p-4 bg-warning/10 border border-warning/20 rounded-lg">
                   <div className="flex items-start gap-3">
                     <AlertCircle className="w-5 h-5 text-warning mt-0.5" />
                     <div>
-                      <h4 className="font-medium text-foreground">Retention Risk Pattern</h4>
+                      <h4 className="font-medium text-foreground">Model Monitoring Alert</h4>
                       <p className="text-sm text-muted-foreground mt-1">
-                        8.9K players showing early churn signals. Predicted LTV drop of 15.2%. 
-                        Consider targeted re-engagement campaigns.
+                        Retention Risk segment showing increased prediction variance. 
+                        Consider retraining with recent data.
                       </p>
-                      <Badge variant="secondary" className="mt-2">Medium Confidence</Badge>
                     </div>
                   </div>
                 </div>
@@ -252,30 +326,17 @@ export default function LTVPrediction() {
         <TabsContent value="builder" className="space-y-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <LTVCohortBuilder />
-            <LTVModelConfig />
+            <LTVPredictionBuilder />
           </div>
+          <LTVModelConfig />
         </TabsContent>
 
         <TabsContent value="results" className="space-y-6">
           <LTVResults predictions={samplePredictions} />
         </TabsContent>
 
-        <TabsContent value="insights" className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>LTV Prediction Insights</CardTitle>
-              <CardDescription>Deep analysis of model performance and value drivers</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="text-center py-12">
-                <Brain className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-                <h3 className="text-lg font-medium text-foreground mb-2">AI Insights Coming Soon</h3>
-                <p className="text-muted-foreground">
-                  Advanced insights and recommendations will be available here
-                </p>
-              </div>
-            </CardContent>
-          </Card>
+        <TabsContent value="performance" className="space-y-6">
+          <LTVModelPerformance />
         </TabsContent>
       </Tabs>
     </div>

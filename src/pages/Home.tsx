@@ -78,28 +78,37 @@ export default function Home() {
       {/* Insights Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="space-y-4">
-          <h2 className="text-xl font-semibold text-foreground">AI Insights</h2>
+          <h2 className="text-xl font-semibold text-foreground">Key Insights</h2>
           <div className="space-y-4">
             <InsightCard
               type="anomaly"
               title="Unusual Drop in Asia-Pacific DAU"
               description="Daily active users in APAC region dropped 18% compared to the 7-day average. This coincides with a server maintenance window that lasted longer than expected."
-              confidence="high"
               severity="medium"
             />
             <InsightCard
               type="trend"
               title="Weekend Session Length Increasing"
               description="Players are spending 23% more time in-game during weekends compared to weekdays. This trend started 3 weeks ago and is accelerating."
-              confidence="high"
               severity="low"
             />
             <InsightCard
               type="driver"
               title="Level 12 Completion Bottleneck"
               description="Players are getting stuck at Level 12 more than usual. 34% higher failure rate compared to other levels. Consider difficulty adjustment."
-              confidence="medium"
               severity="medium"
+            />
+            <InsightCard
+              type="trend"
+              title="Mobile Revenue Growth"
+              description="iOS platform showing 28% revenue increase over last 2 weeks, driven by improved in-app purchase flow."
+              severity="low"
+            />
+            <InsightCard
+              type="anomaly"
+              title="European Market Expansion"
+              description="Significant user acquisition spike in Germany and France following localization update. 45% increase in new registrations."
+              severity="low"
             />
           </div>
         </div>
@@ -112,21 +121,42 @@ export default function Home() {
                 <div className="w-2 h-2 bg-success rounded-full"></div>
                 <div className="flex-1">
                   <p className="text-sm font-medium">New cohort "High-Value Spenders" created</p>
-                  <p className="text-xs text-muted-foreground">2 minutes ago</p>
+                  <p className="text-xs text-muted-foreground">2 minutes ago • Sarah M.</p>
                 </div>
               </div>
               <div className="flex items-center gap-3 pb-3 border-b border-border/20">
                 <div className="w-2 h-2 bg-primary rounded-full"></div>
                 <div className="flex-1">
-                  <p className="text-sm font-medium">Playbook "Weekly Retention Check" executed</p>
-                  <p className="text-xs text-muted-foreground">1 hour ago</p>
+                  <p className="text-sm font-medium">LTV prediction model updated for Q1 cohorts</p>
+                  <p className="text-xs text-muted-foreground">45 minutes ago • System</p>
                 </div>
               </div>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 pb-3 border-b border-border/20">
                 <div className="w-2 h-2 bg-warning rounded-full"></div>
                 <div className="flex-1">
                   <p className="text-sm font-medium">Alert triggered: Revenue dip detected</p>
-                  <p className="text-xs text-muted-foreground">3 hours ago</p>
+                  <p className="text-xs text-muted-foreground">2 hours ago • Alert System</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3 pb-3 border-b border-border/20">
+                <div className="w-2 h-2 bg-accent-cyan rounded-full"></div>
+                <div className="flex-1">
+                  <p className="text-sm font-medium">Dashboard "Weekly KPIs" shared with team</p>
+                  <p className="text-xs text-muted-foreground">3 hours ago • Mike R.</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3 pb-3 border-b border-border/20">
+                <div className="w-2 h-2 bg-accent-purple rounded-full"></div>
+                <div className="flex-1">
+                  <p className="text-sm font-medium">Player segment "At-Risk Users" reached 1.2K members</p>
+                  <p className="text-xs text-muted-foreground">4 hours ago • Cohort Builder</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="w-2 h-2 bg-muted-foreground rounded-full"></div>
+                <div className="flex-1">
+                  <p className="text-sm font-medium">Export completed: Player data Q4 analysis</p>
+                  <p className="text-xs text-muted-foreground">5 hours ago • Tom B.</p>
                 </div>
               </div>
             </div>
@@ -153,10 +183,10 @@ export default function Home() {
             </div>
           </Button>
           <Button variant="outline" className="h-auto p-4 flex-col items-start">
-            <Zap className="w-6 h-6 mb-2 text-accent-purple" />
+            <TrendingUp className="w-6 h-6 mb-2 text-accent-purple" />
             <div className="text-left">
-              <div className="font-medium">Setup Playbook</div>
-              <div className="text-sm text-muted-foreground">Automate your analytics workflows</div>
+              <div className="font-medium">Predict LTV</div>
+              <div className="text-sm text-muted-foreground">Forecast player lifetime value</div>
             </div>
           </Button>
         </div>

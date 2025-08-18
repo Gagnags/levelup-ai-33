@@ -19,10 +19,6 @@ const navItems = [
   { name: "Players", href: "/players", icon: Users },
   { name: "Cohorts", href: "/cohorts", icon: GitBranch },
   { name: "LTV Prediction", href: "/ltv", icon: TrendingUp },
-  { name: "Journeys", href: "/journeys", icon: Route },
-  { name: "Copilot", href: "/copilot", icon: MessageSquare },
-  { name: "Playbooks", href: "/playbooks", icon: Zap },
-  { name: "Catalog", href: "/catalog", icon: Database },
 ];
 
 export const Navigation = () => {

@@ -51,6 +51,42 @@ const sampleCohorts = [
     growth: "+24%",
     lastUpdated: "1 hour ago",
     status: "active"
+  },
+  {
+    id: 5,
+    name: "New Player Onboarding",
+    description: "Players in their first 7 days",
+    size: 12456,
+    growth: "+18%",
+    lastUpdated: "2 hours ago",
+    status: "active"
+  },
+  {
+    id: 6,
+    name: "Retention Risk",
+    description: "Players with declining engagement",
+    size: 3247,
+    growth: "-15%",
+    lastUpdated: "3 hours ago",
+    status: "monitoring"
+  },
+  {
+    id: 7,
+    name: "Power Users",
+    description: "Daily players with >2hr sessions",
+    size: 1156,
+    growth: "+5%",
+    lastUpdated: "4 hours ago",
+    status: "active"
+  },
+  {
+    id: 8,
+    name: "iOS Premium Segment",
+    description: "iOS users with premium purchases",
+    size: 4567,
+    growth: "+22%",
+    lastUpdated: "6 hours ago",
+    status: "active"
   }
 ];
 

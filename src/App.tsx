@@ -9,10 +9,6 @@ import EventExplorer from "./pages/EventExplorer";
 import PlayerProfile from "./pages/PlayerProfile";
 import Cohorts from "./pages/Cohorts";
 import LTVPrediction from "./pages/LTVPrediction";
-import Journeys from "./pages/Journeys";
-import CopilotHome from "./pages/CopilotHome";
-import Playbooks from "./pages/Playbooks";
-import Catalog from "./pages/Catalog";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 
@@ -31,10 +27,6 @@ const App = () => (
             <Route path="players" element={<PlayerProfile />} />
             <Route path="cohorts" element={<Cohorts />} />
             <Route path="ltv" element={<LTVPrediction />} />
-            <Route path="journeys" element={<Journeys />} />
-            <Route path="copilot" element={<CopilotHome />} />
-            <Route path="playbooks" element={<Playbooks />} />
-            <Route path="catalog" element={<Catalog />} />
             <Route path="settings" element={<Settings />} />
             <Route path="*" element={<NotFound />} />
           </Route>

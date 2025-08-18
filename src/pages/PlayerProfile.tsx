@@ -3,6 +3,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { MetricCard } from "@/components/MetricCard";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
 import { 
   User, 
   Search,
@@ -15,7 +18,10 @@ import {
   ShoppingCart,
   Gamepad2,
   TrendingUp,
-  Lightbulb
+  Lightbulb,
+  Calendar,
+  Zap,
+  Target
 } from "lucide-react";
 
 const samplePlayer = {
@@ -28,31 +34,78 @@ const samplePlayer = {
   sessionCount: 127,
   avgSessionLength: "23m 14s",
   totalRevenue: 89.97,
-  joinDate: "2024-01-15"
+  joinDate: "Jan 15, 2024",
+  totalSessions: 127,
+  avgSessionsPerDay: 3.2,
+  longestSession: "1h 47m",
+  preferredPlayTime: "Evening (7-10 PM)",
+  currentStreak: "5 days",
+  highestLevel: 24,
+  levelsCompleted: 23,
+  avgLevelTime: "2h 15m"
 };
 
 const nextBestActions = [
   {
     title: "Offer Soft Currency Bundle",
     description: "Player has failed Level 12 twice. Similar players respond well to currency offers.",
-    confidence: "Medium",
     impact: "+12% conversion",
-    reasoning: "Based on 2,341 similar player patterns"
+    reasoning: "Based on 2,341 similar player patterns",
+    priority: "High"
   },
   {
     title: "Send Social Feature Nudge",
     description: "Player hasn't used multiplayer features. They're in a social-active cohort.",
-    confidence: "High",
     impact: "+18% retention",
-    reasoning: "91% of similar players engage when prompted"
+    reasoning: "91% of similar players engage when prompted",
+    priority: "Medium"
+  },
+  {
+    title: "Weekly Challenge Invitation",
+    description: "Player shows consistent engagement patterns. Weekly challenges boost long-term retention.",
+    impact: "+8% weekly retention",
+    reasoning: "Strong correlation with play frequency",
+    priority: "Medium"
+  },
+  {
+    title: "Premium Content Preview",
+    description: "High-engagement player ready for premium features based on progression speed.",
+    impact: "+15% monetization",
+    reasoning: "Level 20+ players show 3x conversion rate",
+    priority: "High"
   }
 ];
 
+const purchaseHistory = [
+  { date: "Jan 16", item: "Golden Chest Pack", amount: 9.99, currency: "USD", status: "completed" },
+  { date: "Jan 14", item: "Power-up Bundle", amount: 4.99, currency: "USD", status: "completed" },
+  { date: "Jan 10", item: "Extra Lives x10", amount: 2.99, currency: "USD", status: "completed" },
+  { date: "Jan 8", item: "Starter Pack", amount: 19.99, currency: "USD", status: "completed" },
+  { date: "Jan 5", item: "Speed Boost Pack", amount: 1.99, currency: "USD", status: "completed" },
+];
+
+const sessionHistory = [
+  { date: "Jan 16", duration: "28m", levels: 2, purchases: 1, events: 45 },
+  { date: "Jan 16", duration: "15m", levels: 1, purchases: 0, events: 23 },
+  { date: "Jan 15", duration: "42m", levels: 3, purchases: 1, events: 67 },
+  { date: "Jan 15", duration: "19m", levels: 1, purchases: 0, events: 31 },
+  { date: "Jan 14", duration: "33m", levels: 2, purchases: 2, events: 54 },
+];
+
+const progressionMilestones = [
+  { level: 24, date: "Jan 16", attempts: 1, timeSpent: "1h 23m", difficulty: "Hard" },
+  { level: 23, date: "Jan 15", attempts: 2, timeSpent: "2h 45m", difficulty: "Medium" },
+  { level: 22, date: "Jan 14", attempts: 1, timeSpent: "45m", difficulty: "Medium" },
+  { level: 21, date: "Jan 13", attempts: 3, timeSpent: "3h 12m", difficulty: "Hard" },
+  { level: 20, date: "Jan 12", attempts: 1, timeSpent: "52m", difficulty: "Easy" },
+];
+
 const recentEvents = [
-  { type: "level_fail", details: "Failed Level 12 (3rd attempt)", time: "2 hours ago", severity: "warning" },
+  { type: "level_fail", details: "Failed Level 25 (1st attempt)", time: "2 hours ago", severity: "warning" },
   { type: "session_end", details: "Session lasted 28 minutes", time: "2 hours ago", severity: "normal" },
-  { type: "item_purchase", details: "Bought Health Potion x3", time: "3 hours ago", severity: "positive" },
-  { type: "level_complete", details: "Completed Level 11", time: "5 hours ago", severity: "positive" },
+  { type: "item_purchase", details: "Bought Golden Chest Pack", time: "3 hours ago", severity: "positive" },
+  { type: "level_complete", details: "Completed Level 24", time: "3 hours ago", severity: "positive" },
+  { type: "social_connect", details: "Connected Facebook account", time: "5 hours ago", severity: "positive" },
   { type: "session_start", details: "Started new session", time: "5 hours ago", severity: "normal" },
 ];
 
@@ -69,7 +122,7 @@ export default function PlayerProfile() {
             Player 360
           </h1>
           <p className="text-muted-foreground mt-1">
-            Comprehensive player profiles with AI-powered insights
+            Comprehensive player profiles with detailed analytics
           </p>
         </div>
       </div>
@@ -161,22 +214,38 @@ export default function PlayerProfile() {
 
         <TabsContent value="overview" className="space-y-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* AI Summary */}
+            {/* Player Summary */}
             <div className="bg-card border border-card-border rounded-lg p-6">
               <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
                 <TrendingUp className="w-5 h-5 text-primary" />
-                AI Summary
+                Player Summary
               </h3>
-              <div className="space-y-3 text-sm">
-                <p className="text-muted-foreground leading-relaxed">
-                  This player shows <span className="text-foreground font-medium">high engagement</span> with 
-                  above-average session lengths and consistent daily activity. They're currently experiencing 
-                  friction at Level 12 with multiple recent failures.
-                </p>
-                <p className="text-muted-foreground leading-relaxed">
-                  Spending pattern indicates <span className="text-foreground font-medium">moderate monetization</span> 
-                  with small, frequent purchases. Strong candidate for progression assistance and social feature adoption.
-                </p>
+              <div className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <p className="text-sm text-muted-foreground">Play Streak</p>
+                    <p className="text-lg font-semibold text-foreground">{samplePlayer.currentStreak}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-muted-foreground">Sessions/Day</p>
+                    <p className="text-lg font-semibold text-foreground">{samplePlayer.avgSessionsPerDay}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-muted-foreground">Longest Session</p>
+                    <p className="text-lg font-semibold text-foreground">{samplePlayer.longestSession}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-muted-foreground">Preferred Time</p>
+                    <p className="text-lg font-semibold text-foreground">{samplePlayer.preferredPlayTime}</p>
+                  </div>
+                </div>
+                <div className="pt-4 border-t border-border">
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    This player shows <span className="text-foreground font-medium">high engagement</span> with 
+                    above-average session lengths and consistent daily activity. Currently progressing through 
+                    mid-tier content with moderate spending patterns.
+                  </p>
+                </div>
               </div>
             </div>
 
@@ -191,13 +260,9 @@ export default function PlayerProfile() {
                   <div key={index} className="border border-border rounded-lg p-4">
                     <div className="flex items-start justify-between mb-2">
                       <h4 className="font-medium text-foreground">{action.title}</h4>
-                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                        action.confidence === "High" 
-                          ? "bg-success/10 text-success" 
-                          : "bg-accent-cyan/10 text-accent-cyan"
-                      }`}>
-                        {action.confidence}
-                      </span>
+                      <Badge variant={action.priority === "High" ? "default" : "secondary"} className="text-xs">
+                        {action.priority}
+                      </Badge>
                     </div>
                     <p className="text-sm text-muted-foreground mb-2">{action.description}</p>
                     <div className="flex items-center justify-between text-xs">
@@ -237,22 +302,133 @@ export default function PlayerProfile() {
 
         <TabsContent value="purchases">
           <div className="bg-card border border-card-border rounded-lg p-6">
-            <h3 className="text-lg font-semibold text-foreground mb-4">Purchase History</h3>
-            <p className="text-muted-foreground">Purchase history and monetization insights coming soon...</p>
+            <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
+              <ShoppingCart className="w-5 h-5" />
+              Purchase History
+            </h3>
+            <div className="space-y-3">
+              {purchaseHistory.map((purchase, index) => (
+                <div key={index} className="flex items-center justify-between p-4 bg-surface-elevated rounded-lg">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-success/10 rounded-lg flex items-center justify-center">
+                      <DollarSign className="w-5 h-5 text-success" />
+                    </div>
+                    <div>
+                      <p className="font-medium text-foreground">{purchase.item}</p>
+                      <p className="text-sm text-muted-foreground">{purchase.date}</p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <p className="font-semibold text-foreground">${purchase.amount}</p>
+                    <Badge variant="secondary" className="text-xs">{purchase.status}</Badge>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="mt-6 pt-4 border-t border-border">
+              <div className="grid grid-cols-3 gap-4 text-center">
+                <div>
+                  <p className="text-sm text-muted-foreground">Total Spent</p>
+                  <p className="text-xl font-bold text-foreground">${samplePlayer.totalRevenue}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">Avg Purchase</p>
+                  <p className="text-xl font-bold text-foreground">$9.59</p>
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">Purchase Frequency</p>
+                  <p className="text-xl font-bold text-foreground">2.3 days</p>
+                </div>
+              </div>
+            </div>
           </div>
         </TabsContent>
 
         <TabsContent value="sessions">
           <div className="bg-card border border-card-border rounded-lg p-6">
-            <h3 className="text-lg font-semibold text-foreground mb-4">Session Analysis</h3>
-            <p className="text-muted-foreground">Detailed session analytics coming soon...</p>
+            <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
+              <Activity className="w-5 h-5" />
+              Session History
+            </h3>
+            <div className="space-y-3">
+              {sessionHistory.map((session, index) => (
+                <div key={index} className="p-4 bg-surface-elevated rounded-lg">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="font-medium text-foreground">{session.date}</span>
+                    <span className="text-sm font-semibold text-primary">{session.duration}</span>
+                  </div>
+                  <div className="grid grid-cols-3 gap-4 text-sm">
+                    <div>
+                      <span className="text-muted-foreground">Levels: </span>
+                      <span className="font-medium">{session.levels}</span>
+                    </div>
+                    <div>
+                      <span className="text-muted-foreground">Purchases: </span>
+                      <span className="font-medium">{session.purchases}</span>
+                    </div>
+                    <div>
+                      <span className="text-muted-foreground">Events: </span>
+                      <span className="font-medium">{session.events}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </TabsContent>
 
         <TabsContent value="progression">
           <div className="bg-card border border-card-border rounded-lg p-6">
-            <h3 className="text-lg font-semibold text-foreground mb-4">Progression Timeline</h3>
-            <p className="text-muted-foreground">Level progression and difficulty analysis coming soon...</p>
+            <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
+              <Trophy className="w-5 h-5" />
+              Level Progression
+            </h3>
+            <div className="space-y-4">
+              {progressionMilestones.map((milestone, index) => (
+                <div key={index} className="p-4 bg-surface-elevated rounded-lg">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center text-sm font-bold text-primary">
+                        {milestone.level}
+                      </div>
+                      <div>
+                        <p className="font-medium text-foreground">Level {milestone.level}</p>
+                        <p className="text-sm text-muted-foreground">{milestone.date}</p>
+                      </div>
+                    </div>
+                    <Badge variant={milestone.difficulty === "Hard" ? "destructive" : milestone.difficulty === "Medium" ? "secondary" : "default"}>
+                      {milestone.difficulty}
+                    </Badge>
+                  </div>
+                  <div className="grid grid-cols-2 gap-4 text-sm">
+                    <div>
+                      <span className="text-muted-foreground">Attempts: </span>
+                      <span className="font-medium">{milestone.attempts}</span>
+                    </div>
+                    <div>
+                      <span className="text-muted-foreground">Time Spent: </span>
+                      <span className="font-medium">{milestone.timeSpent}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="mt-6 pt-4 border-t border-border">
+              <div className="grid grid-cols-3 gap-4 text-center">
+                <div>
+                  <p className="text-sm text-muted-foreground">Current Level</p>
+                  <p className="text-xl font-bold text-foreground">{samplePlayer.xpLevel}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">Completed</p>
+                  <p className="text-xl font-bold text-foreground">{samplePlayer.levelsCompleted}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">Avg Time/Level</p>
+                  <p className="text-xl font-bold text-foreground">{samplePlayer.avgLevelTime}</p>
+                </div>
+              </div>
+            </div>
           </div>
         </TabsContent>
       </Tabs>
