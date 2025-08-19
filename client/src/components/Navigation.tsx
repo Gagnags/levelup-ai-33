@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation } from "wouter";
 import { cn } from "@/lib/utils";
 import { 
   Home, 
@@ -22,7 +22,7 @@ const navItems = [
 ];
 
 export const Navigation = () => {
-  const location = useLocation();
+  const [location] = useLocation();
 
   return (
     <nav className="w-64 bg-surface border-r border-border flex flex-col">
@@ -42,11 +42,11 @@ export const Navigation = () => {
       {/* Navigation Items */}
       <div className="flex-1 p-4 space-y-1">
         {navItems.map((item) => {
-          const isActive = location.pathname === item.href;
+          const isActive = location === item.href;
           return (
             <Link
               key={item.name}
-              to={item.href}
+              href={item.href}
               className={cn(
                 "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-smooth hover:bg-secondary",
                 isActive 
@@ -64,7 +64,7 @@ export const Navigation = () => {
       {/* User Settings */}
       <div className="p-4 border-t border-border">
         <Link
-          to="/settings"
+          href="/settings"
           className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-secondary transition-smooth"
         >
           <Settings className="w-5 h-5" />

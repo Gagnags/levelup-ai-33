@@ -1,9 +1,8 @@
-import { Outlet } from "react-router-dom";
 import { Navigation } from "./Navigation";
 import { CopilotPanel } from "./CopilotPanel";
 import { useState } from "react";
 
-export const Layout = () => {
+export const Layout = ({ children }: { children: React.ReactNode }) => {
   const [isCopilotOpen, setIsCopilotOpen] = useState(false);
 
   return (
@@ -12,7 +11,7 @@ export const Layout = () => {
       
       <main className="flex-1 flex flex-col overflow-hidden">
         <div className="flex-1 overflow-auto">
-          <Outlet />
+          {children}
         </div>
       </main>
 

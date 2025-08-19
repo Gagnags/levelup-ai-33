@@ -117,7 +117,7 @@ const samplePredictions = [
 
 export default function LTVPrediction() {
   const [activeTab, setActiveTab] = useState("overview");
-  const [selectedPrediction, setSelectedPrediction] = useState(null);
+  const [selectedPrediction, setSelectedPrediction] = useState<any>(null);
 
   return (
     <div className="space-y-6">
