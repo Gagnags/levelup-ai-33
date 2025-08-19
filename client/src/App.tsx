@@ -12,6 +12,8 @@ import LTVSimple from "./pages/LTVSimple";
 import LTVAdvanced from "./pages/LTVAdvanced";
 import LTVResults from "./pages/LTVResults";
 import LTVPerformance from "./pages/LTVPerformance";
+import SQLQuery from "./pages/SQLQuery";
+import SupportSystem from "./components/SupportSystem";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 
@@ -33,6 +35,8 @@ const App = () => (
             <Route path="/ltv/advanced" component={LTVAdvanced} />
             <Route path="/ltv/run/:id" component={LTVResults} />
             <Route path="/ltv/performance" component={LTVPerformance} />
+            <Route path="/sql-query" component={SQLQuery} />
+            <Route path="/support" component={() => <SupportSystem />} />
             <Route path="/settings" component={Settings} />
             <Route component={NotFound} />
           </Switch>

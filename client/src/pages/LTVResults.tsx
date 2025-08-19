@@ -88,20 +88,20 @@ export default function LTVResults() {
         </div>
       </div>
 
-      {/* Two-column Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Left Column - Primary Chart */}
-        <div className="lg:col-span-2 space-y-6">
+      {/* Chart-First Layout */}
+      <div className="flex gap-6">
+        {/* Main Content - Chart */}
+        <main className="flex-1">
           <LTVChart 
             showFilters={false}
             showOverlays={true}
             runData={runData}
             data-testid="ltv-results-chart"
           />
-        </div>
+        </main>
 
-        {/* Right Column - Secondary Panels */}
-        <div className="space-y-6" data-testid="ltv-results-drivers">
+        {/* Right Sidebar - Drivers & Actions */}
+        <aside className="w-80 p-4 border-l border-border space-y-6" data-testid="ltv-results-drivers">
           {/* Key Drivers */}
           <Card>
             <CardHeader>
@@ -187,59 +187,9 @@ export default function LTVResults() {
               </Button>
             </CardContent>
           </Card>
-        </div>
+        </aside>
       </div>
 
-      {/* Summary Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-muted-foreground">Predicted LTV (90d)</p>
-                <p className="text-2xl font-bold">${runData.predictedLTV90d}</p>
-              </div>
-              <TrendingUp className="w-8 h-8 text-success" />
-            </div>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-muted-foreground">Cohort Size</p>
-                <p className="text-2xl font-bold">{runData.cohortSize.toLocaleString()}</p>
-              </div>
-              <Users className="w-8 h-8 text-primary" />
-            </div>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-muted-foreground">Model Confidence</p>
-                <p className="text-2xl font-bold">{Math.round(runData.confidence * 100)}%</p>
-              </div>
-              <Badge variant="outline" className="text-success border-success">High</Badge>
-            </div>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-muted-foreground">Status</p>
-                <p className="text-2xl font-bold capitalize">{runData.status}</p>
-              </div>
-              <Badge variant="default">Running</Badge>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
     </div>
   );
 }
