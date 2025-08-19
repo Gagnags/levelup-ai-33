@@ -8,7 +8,10 @@ import Home from "./pages/Home";
 import EventExplorer from "./pages/EventExplorer";
 import PlayerProfile from "./pages/PlayerProfile";
 import Cohorts from "./pages/Cohorts";
-import LTVPrediction from "./pages/LTVPrediction";
+import LTVSimple from "./pages/LTVSimple";
+import LTVAdvanced from "./pages/LTVAdvanced";
+import LTVResults from "./pages/LTVResults";
+import LTVPerformance from "./pages/LTVPerformance";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 
@@ -26,7 +29,10 @@ const App = () => (
             <Route path="/explore" component={EventExplorer} />
             <Route path="/players" component={PlayerProfile} />
             <Route path="/cohorts" component={Cohorts} />
-            <Route path="/ltv" component={LTVPrediction} />
+            <Route path="/ltv" component={LTVSimple} />
+            <Route path="/ltv/advanced" component={LTVAdvanced} />
+            <Route path="/ltv/run/:id" component={LTVResults} />
+            <Route path="/ltv/performance" component={LTVPerformance} />
             <Route path="/settings" component={Settings} />
             <Route component={NotFound} />
           </Switch>
