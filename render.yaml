@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: levelup-ai-33
+    env: node
+    plan: free
+    nodeVersion: 20
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    autoDeploy: true
+    healthCheckPath: / 
